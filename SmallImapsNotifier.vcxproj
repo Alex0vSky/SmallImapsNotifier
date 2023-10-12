@@ -239,7 +239,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
       <AdditionalOptions>Onecore.lib Shlwapi.lib /STACK:"4096"",1024"  /HEAP:"4096"",1024" %(AdditionalOptions)</AdditionalOptions>
     </Link>
