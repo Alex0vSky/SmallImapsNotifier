@@ -6,7 +6,10 @@ https://en.wikipedia.org/wiki/C++
 Notifies about a new letter on the taskbar, works via the IMAPS: IMAP over SSL/TLS.
 
 ## Features
-[StateMachine image]
+State Machine bevahior in *plantuml*:
+
+![StateMachine_plantuml](https://github.com/Alex0vSky/SmallImapsNotifier/assets/52796897/1fca7162-ee3d-4921-bde4-03df3403368a)
+
 Tested on a Gmail account. To get a 16-digit password, you need to enable two-factor authentication for your Gmail account.
 
 ## Requirements
@@ -32,7 +35,7 @@ Before building, you must manually install *mailio* and *boost* and change the p
 Can ask questions. PRs are accepted. No requirements for contributing.
 
 ## Thanks
-[boost-ext/sml](https://github.com/boost-ext/sml), [mailio](https://github.com/karastojko/mailio), boost, openssl
+[boost-ext/sml](https://github.com/boost-ext/sml), *plantuml*, [mailio](https://github.com/karastojko/mailio), boost, openssl
 
 ## License
 See the [LICENSE](https://github.com/Alex0vSky/SmallImapsNotifier/blob/main/LICENSE) file for license rights and limitations (MIT).
