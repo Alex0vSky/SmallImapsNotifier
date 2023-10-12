@@ -34,6 +34,7 @@ Tested on a Gmail account. To get a 16-digit password, you need to enable two-fa
 @todo:
 - [ ] clean up the code
 - [ ] get rid opensll dll-s requirements
+- [ ] pentesting ssl mitm
 - [ ] async UI waiting
 - [ ] unit tests
 - [ ] CI
