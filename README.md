@@ -11,6 +11,24 @@ State Machine bevahior in *plantuml*:
 
 ![StateMachine_plantuml](https://github.com/Alex0vSky/SmallImapsNotifier/assets/52796897/1fca7162-ee3d-4921-bde4-03df3403368a)
 
+```
+@startuml
+
+[*] --> idle
+idle --> TryInbox : CheckAccess / Imap
+TryInbox --> terminate : Inavailable [guardAvailable]
+TryInbox --> Waiting : StartLoop / InitialEmailCount
+TryInbox : entry / InboxAvailable
+Waiting --> terminate : HasBreak [guardBreak]
+Waiting --> RenewedEmail : RenewEmail / Imap
+Waiting : entry / BreakableSleep
+RenewedEmail --> terminate : Inavailable [guardAvailable]
+RenewedEmail --> Waiting : ContinueLoop
+RenewedEmail : entry / (InboxAvailable, EmailCounter)
+
+@enduml
+```
+
 Tested on a Gmail account. To get a 16-digit password, you need to enable two-factor authentication for your Gmail account.
 
 @todo:
