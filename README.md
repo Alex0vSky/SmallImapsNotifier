@@ -4,6 +4,7 @@ https://en.wikipedia.org/wiki/C++
 )
 
 Notifies about a new letter on the taskbar, works via the IMAPS: IMAP over SSL/TLS.
+Made with the aim of studying the application of State Machine in the real world.
 
 ## Features
 State Machine bevahior in *plantuml*:
@@ -11,6 +12,14 @@ State Machine bevahior in *plantuml*:
 ![StateMachine_plantuml](https://github.com/Alex0vSky/SmallImapsNotifier/assets/52796897/1fca7162-ee3d-4921-bde4-03df3403368a)
 
 Tested on a Gmail account. To get a 16-digit password, you need to enable two-factor authentication for your Gmail account.
+
+@todo:
+- [ ] clean up the code
+- [ ] get rid opensll dll-s requirements
+- [ ] async UI waiting
+- [ ] unit tests
+- [ ] CI
+- [ ] try a smaller SSL
 
 ## Requirements
 mailio library, openssl library, boost library.
