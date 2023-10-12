@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\MsvcGenerated">
+      <UniqueIdentifier>{145513ed-a132-40bd-a4dc-74470f45f55a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_pch">
+      <UniqueIdentifier>{83c8ee4b-eba3-4316-8cfc-edd38c802025}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tool">
+      <UniqueIdentifier>{c7368733-1d19-4fea-b037-e39203df61a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PersistSettings">
+      <UniqueIdentifier>{72faca64-9f0a-4eab-976e-3af0bdadc243}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\mailio">
+      <UniqueIdentifier>{8a199cc4-3f73-425e-b01f-96a6ebf717ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\OsiApplication">
+      <UniqueIdentifier>{82aec714-fe69-4311-81eb-ccc2897c6932}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\OsiApplication\Imaps">
+      <UniqueIdentifier>{d77bfabf-1c89-46d8-bcda-4d30ac37da56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\OsiApplication\Imaps\StateMachine">
+      <UniqueIdentifier>{44b9faa9-d1d5-487a-8ed1-45e18a83a155}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\SmallImapsNotifier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MsvcGenerated\stdafx.cpp">
+      <Filter>_pch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_L\net\mailio\src\base64.cpp">
+      <Filter>Source Files\mailio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_L\net\mailio\src\binary.cpp">
+      <Filter>Source Files\mailio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_L\net\mailio\src\bit7.cpp">
+      <Filter>Source Files\mailio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_L\net\mailio\src\bit8.cpp">
+      <Filter>Source Files\mailio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_L\net\mailio\src\codec.cpp">
+      <Filter>Source Files\mailio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_L\net\mailio\src\dialog.cpp">
+      <Filter>Source Files\mailio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_L\net\mailio\src\imap.cpp">
+      <Filter>Source Files\mailio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_L\net\mailio\src\mailboxes.cpp">
+      <Filter>Source Files\mailio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_L\net\mailio\src\message.cpp">
+      <Filter>Source Files\mailio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_L\net\mailio\src\mime.cpp">
+      <Filter>Source Files\mailio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_L\net\mailio\src\q_codec.cpp">
+      <Filter>Source Files\mailio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_L\net\mailio\src\quoted_printable.cpp">
+      <Filter>Source Files\mailio</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\WndProc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DialogPopupSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files\MsvcGenerated</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MsvcGenerated\framework.h">
+      <Filter>Header Files\MsvcGenerated</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MsvcGenerated\targetver.h">
+      <Filter>Header Files\MsvcGenerated</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MsvcGenerated\stdafx.h">
+      <Filter>_pch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tool\HeapMem.h">
+      <Filter>Header Files\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tool\Registry.h">
+      <Filter>Header Files\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tool\ErrorHandler.h">
+      <Filter>Header Files\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PersistSettings\Creds.h">
+      <Filter>Header Files\PersistSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ForwardToInstance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Version.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tool\Trait.h">
+      <Filter>Header Files\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OsiApplication\Imaps\Thread.h">
+      <Filter>Header Files\OsiApplication\Imaps</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OsiApplication\Imaps\Credentials.h">
+      <Filter>Header Files\OsiApplication\Imaps</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OsiApplication\Imaps\StateMachine\Helper.h">
+      <Filter>Header Files\OsiApplication\Imaps\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OsiApplication\Imaps\StateMachine\Impl.h">
+      <Filter>Header Files\OsiApplication\Imaps\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tool\Cryptor.h">
+      <Filter>Header Files\Tool</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resource\icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource\TinyImap.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
