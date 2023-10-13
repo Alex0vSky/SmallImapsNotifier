@@ -4,7 +4,7 @@ namespace prj_sysw::SmallImapsNotifier::OsiApplication::Imaps::StateMachine {
 
 // events
 struct CheckAccess{};
-struct Inavailable{};
+struct Unavailable{};
 struct StartLoop{};
 struct HasBreak{};
 struct RenewEmail{};
@@ -16,8 +16,7 @@ typedef std::function< bool(crstr_t, crstr_t) > showBalloon_t;
 // dependencies
 struct dependencyImaps {
 	const Credentials m_credentials;
-	const std::chrono::seconds c_connectTimeout_sec;
-	std::unique_ptr< mailio::imaps > m_mailio;
+	std::chrono::seconds c_connectTimeout_sec;
 };
 struct dependencyEmailCount {
 	setActiveTip_t fnSetActiveTip;
@@ -29,14 +28,11 @@ struct dependencyEmailCount {
 	std::string lastSubject;
 };
 struct dependencyBreakableSleep {
-	const std::chrono::seconds c_RecheckInterval_sec;
+	std::chrono::seconds c_RecheckInterval_sec;
 	std::condition_variable *m_pConditionVariable;
 	std::mutex *m_pcvMutex;
 	bool m_bBreak;
-	// trick for sml init chrono const
-	std::unique_ptr< bool > unused_;
 };
-
 struct dependencyAvailable {
 	bool m_bAvailable;
 };
@@ -46,14 +42,15 @@ struct Imap { void operator()(dependencyImaps &imaps, dependencyEmailCount& coun
 	std::cout << "Imap()" << std::endl;
 
 	std::cout << "Imap_connect()" << std::endl; 
-	imaps.m_mailio = std::make_unique< mailio::imaps >( 
+	std::unique_ptr< mailio::imaps > pmailio;
+	pmailio = std::make_unique< mailio::imaps >( 
 			imaps.m_credentials.host
 			, imaps.m_credentials.port
 			, imaps.c_connectTimeout_sec
 		);
 
 	std::cout << "Imap_authz()" << std::endl; 
-	imaps.m_mailio ->authenticate(
+	pmailio ->authenticate(
 			imaps.m_credentials.login
 			, imaps.m_credentials.password
 			, mailio::imaps::auth_method_t::LOGIN
@@ -62,21 +59,21 @@ struct Imap { void operator()(dependencyImaps &imaps, dependencyEmailCount& coun
 	std::cout << "Imap_fetch()" << std::endl;
 	const char mailbox[] = "inbox";
 	// @insp https://github.com/jkoomjian/MyEmailResponseRate/issues/2
-	const auto stat_ = imaps.m_mailio ->select( mailbox );
+	const auto stat_ = pmailio ->select( mailbox );
 
 	std::list< mailio::imap::search_condition_t > search_condition;
 	// UNSEEN exclude ALL
 	search_condition.emplace_back( mailio::imap::search_condition_t::UNSEEN );
 	std::list<unsigned long> results;
-	imaps.m_mailio ->search( search_condition, results );
+	pmailio ->search( search_condition, results );
 	unsigned long lastSequenceNumber = results.back( );
 	std::cout << "lastSequenceNumber = " << lastSequenceNumber << std::endl;
 
 	// To known sender and subject
 	mailio::message lastMessage;
 	bool header_only;
-	imaps.m_mailio ->fetch( mailbox, lastSequenceNumber, lastMessage, header_only = true );
-	imaps.m_mailio.reset( );
+	pmailio ->fetch( mailbox, lastSequenceNumber, lastMessage, header_only = true );
+	pmailio.reset( );
 
 	std::stringstream ss;
 	ss << lastMessage.from_to_string( ) << std::endl;
@@ -87,7 +84,6 @@ struct Imap { void operator()(dependencyImaps &imaps, dependencyEmailCount& coun
 	counter.m_currentEmailCount = lastSequenceNumber;
 	counter.lastFrom = lastMessage.from_to_string( );
 	counter.lastSubject = lastMessage.subject( );
-	Helper::rtrim( counter.lastSubject, '\n' );
 
 } } Imap;
 
@@ -151,7 +147,7 @@ struct ImapsSm {
 		// Using `state<>` to avoid anon in MSVC
 		*state<struct idle> + event<CheckAccess> / Imap = "TryInbox"_s
 
-		, "TryInbox"_s + event<Inavailable> [guardAvailable] = X
+		, "TryInbox"_s + event<Unavailable> [guardAvailable] = X
 		, "TryInbox"_s + event<StartLoop> / InitialEmailCount = "Waiting"_s
 		, "TryInbox"_s + on_entry<_> / InboxAvailable
 
@@ -159,7 +155,7 @@ struct ImapsSm {
 		, "Waiting"_s + event<RenewEmail> / Imap= "RenewedEmail"_s
 		, "Waiting"_s + on_entry<_> / BreakableSleep
 
-		, "RenewedEmail"_s + event<Inavailable> [guardAvailable] = X
+		, "RenewedEmail"_s + event<Unavailable> [guardAvailable] = X
 		, "RenewedEmail"_s + event<ContinueLoop> = "Waiting"_s
 		, "RenewedEmail"_s + on_entry<_> / ( InboxAvailable, EmailCounter )
 

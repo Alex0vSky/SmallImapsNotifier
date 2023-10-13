@@ -2,30 +2,25 @@
 #pragma once // Copyright 2023 Alex0vSky (https://github.com/Alex0vSky)
 namespace prj_sysw::SmallImapsNotifier::OsiApplication::Imaps {
 class Thread {
-
 	static constexpr std::chrono::seconds c_ReconnectTry_sec{ 60 };
 	static constexpr std::chrono::seconds c_ConnectTimeout_sec{ 30 };
 	static constexpr std::chrono::minutes c_RecheckInterval_minutes{ 5 };
-	typedef std::unique_ptr< mailio::imaps > mailio_t;
-	mailio_t m_conn;
-	std::atomic_bool m_bStop;
+
 	Credentials m_credentials;
+	StateMachine::setActiveTip_t m_clbSetActiveTip;
+	StateMachine::showBalloon_t m_clbShowBalloon;
 
 	std::condition_variable m_cv;
 	std::mutex m_cvMutex;
-
-	StateMachine::setActiveTip_t m_clbSetActiveTip;
-	StateMachine::showBalloon_t m_clbShowBalloon;
+	std::atomic_bool m_bStop;
 	std::thread m_thread;
-
-	// @inso SO/questions/9864125/c11-how-to-alias-a-function
-	static constexpr auto now = std::chrono::system_clock::now;
 
 	bool breakableWaitReconnect_() {
 		if ( m_bStop )
 			return false;
 		std::unique_lock< std::mutex > lock( m_cvMutex );
-		std::cv_status waiting = m_cv.wait_until( lock, now( ) + c_ReconnectTry_sec );
+		std::cv_status waiting = m_cv.wait_until( lock, 
+			std::chrono::system_clock::now( ) + c_ReconnectTry_sec );
 		return std::cv_status::timeout == waiting;
 	}
 
@@ -41,8 +36,8 @@ class Thread {
 			dependencyImaps imaps = { m_credentials, c_ConnectTimeout_sec };
 			dependencyEmailCount counter = { m_clbSetActiveTip, m_clbShowBalloon };
 			dependencyBreakableSleep sleep = { 
-					//c_RecheckInterval_minutes
-					std::chrono::seconds{ 10 } // tmp
+					c_RecheckInterval_minutes
+					//std::chrono::seconds{ 10 } // tmp
 					, &m_cv
 					, &m_cvMutex
 				};
@@ -67,8 +62,6 @@ class Thread {
 	}
 //
  public:
-	typedef std::unique_ptr< Thread > uptr_t;
-
 	explicit Thread(
 		const Credentials &credentials
 		, StateMachine::setActiveTip_t clbSetActiveTip

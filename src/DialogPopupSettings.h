@@ -5,7 +5,8 @@ namespace detail_ {
 template<class T = PersistSettings::Creds<>>
 class DialogPopupSettings_ : public ForwardToInstance::Base {
 
-	OsiApplication::Imaps::Thread::uptr_t m_imapsThread;
+	std::unique_ptr< OsiApplication::Imaps::Thread > m_imapsThread;
+
 	// For Tray
 	using setActiveTip_t = OsiApplication::Imaps::StateMachine::setActiveTip_t;
 	using showBalloon_t = OsiApplication::Imaps::StateMachine::showBalloon_t;
