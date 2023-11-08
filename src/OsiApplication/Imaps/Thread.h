@@ -16,11 +16,10 @@ class Thread {
 	std::thread m_thread;
 
 	bool breakableWaitReconnect_() {
-		if ( m_bStop )
-			return false;
-		std::unique_lock< std::mutex > lock( m_cvMutex );
-		std::cv_status waiting = m_cv.wait_until( lock, 
-			std::chrono::system_clock::now( ) + c_ReconnectTry_sec );
+		std::lock_guard lock(m_cvMutex);
+		std::cv_status waiting = m_cv.wait_for( lock, c_ReconnectTry_sec, []{
+				return m_bStop;
+			});
 		return std::cv_status::timeout == waiting;
 	}
 
@@ -62,7 +61,7 @@ class Thread {
 	}
 //
  public:
-	explicit Thread(
+	Thread(
 		const Credentials &credentials
 		, StateMachine::setActiveTip_t clbSetActiveTip
 		, StateMachine::showBalloon_t clbShowBalloon
@@ -85,7 +84,10 @@ class Thread {
 	}
 
 	void stop() {
-		m_bStop = true;
+		{
+			std::lock_guard lock( m_cvMutex );
+			m_bStop = true;
+		}
 		m_cv.notify_all( );
 		m_thread.join( );
 	}
